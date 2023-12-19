@@ -75,7 +75,6 @@ class DBStorage:
         """call remove() method on the private session attribute"""
         self.__session.remove()
 
-
     def get(self, cls, id):
         """return an object base on class and ID"""
         if cls in classes.values():
@@ -96,4 +95,3 @@ class DBStorage:
         else:
             objs = len(models.storage.all())
         return objs
-
