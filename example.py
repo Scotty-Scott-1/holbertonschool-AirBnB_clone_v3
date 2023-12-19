@@ -9,10 +9,6 @@ print(os.environ["HBNB_TYPE_STORAGE"])
 
 
 
-print(storage.all(State))
 
-
-"""
-result = storage.get(State, "f779ec7f-bca4-4049-ac33-80b75dae2f41")
+result = storage.get(State, "0e391e25-dd3a-45f4-bce3-4d1dea83f3c7")
 print(result)
-"""

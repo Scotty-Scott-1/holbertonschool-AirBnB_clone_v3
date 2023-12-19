@@ -80,15 +80,10 @@ class DBStorage:
         """return an object base on class and ID"""
         if cls in classes.values():
             all_objs = models.storage.all(cls)
-            print("this is db storage method")
-            return all_objs
-
-            """
-            for obj in all_objs.values():
-                if obj.id == id:
-                    return obj
-                else:
-                    return None
+            key = "State." + id
+            if key in all_objs:
+                return all_objs[key]
+            else:
+                return None
         else:
             return None
-"""
