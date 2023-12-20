@@ -21,7 +21,7 @@ def close_storage(exception=None):
 @app.errorhandler(404)
 def not_found_error(error):
     """Handler for 404 error"""
-    response = {"error": "not found"}
+    response = {"error": "Not found"}
     return jsonify(response), 404
 
 
