@@ -3,6 +3,7 @@
 
 from api.v1.views import app_views
 from flask import Flask
+from flask import jsonify
 import os
 from models import storage
 
@@ -24,3 +25,9 @@ if __name__ == "__main__":
 
     """Run the Flask server with specified configurations"""
     app.run(host=host, port=port, threaded=True)
+
+    """Handler for 404 error"""
+    @app.errorhandler(404)
+    def not_found_error(error):
+        response = {"error ": "not found"}
+        return jsonify(response), 404
