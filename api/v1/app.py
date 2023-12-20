@@ -18,6 +18,13 @@ def close_storage(exception=None):
     storage.close()
 
 
+@app.errorhandler(404)
+def not_found_error(error):
+    """Handler for 404 error"""
+    response = {"error": "not found"}
+    return jsonify(response), 404
+
+
 if __name__ == "__main__":
     """Retrieving host and port from environment variables"""
     host = os.environ.get('HBNB_API_HOST', '0.0.0.0')
@@ -25,9 +32,3 @@ if __name__ == "__main__":
 
     """Run the Flask server with specified configurations"""
     app.run(host=host, port=port, threaded=True)
-
-    """Handler for 404 error"""
-    @app.errorhandler(404)
-    def not_found_error(error):
-        response = {"error ": "not found"}
-        return jsonify(response), 404
