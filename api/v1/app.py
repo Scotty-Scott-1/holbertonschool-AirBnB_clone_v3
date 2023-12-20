@@ -8,8 +8,7 @@ from models import storage
 
 app = Flask(__name__)
 
-
-"""Method to handle teardown_appcontext"""
+app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
