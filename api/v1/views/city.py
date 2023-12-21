@@ -10,11 +10,13 @@ from models.place import Place
 from models.review import Review
 from models.user import User
 
+
 @app_views.route('/cities', strict_slashes=False)
 def all_states():
     all_cities = storage.all(City).values()
     list_cities = [city.to_dict() for city in all_cities]
     return jsonify(list_cities)
+
 
 @app_views.route('/cities/<city_id>', strict_slashes=False)
 def specific_state(city_id):
@@ -25,6 +27,7 @@ def specific_state(city_id):
         return jsonify(specific_city)
     else:
         abort(404)
+
 
 @app_views.route(
         '/cities/<city_id>', strict_slashes=False, methods=['DELETE'])
@@ -39,6 +42,7 @@ def delete_specific_state(city_id):
         return jsonify({}), 200
     else:
         abort(404)
+
 
 @app_views.route('/cities', strict_slashes=False, methods=['POST'])
 def create_city():
