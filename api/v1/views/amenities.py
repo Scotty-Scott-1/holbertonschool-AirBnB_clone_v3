@@ -31,7 +31,7 @@ def specific_amenity(amenity_id):
 
 @app_views.route(
         '/amenities/<amenity_id>', strict_slashes=False, methods=['DELETE'])
-def delete_specific_state(amenity_id):
+def delete_specific_amenity(amenity_id):
     key = "amenity.{}".format(amenity_id)
     all_amenities = storage.all(Amenity)
 

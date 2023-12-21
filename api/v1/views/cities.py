@@ -31,7 +31,7 @@ def specific_city(city_id):
 
 @app_views.route(
         '/cities/<city_id>', strict_slashes=False, methods=['DELETE'])
-def delete_specific_state(city_id):
+def delete_specific_citie(city_id):
     key = "City.{}".format(city_id)
     all_cities = storage.all(City)
 
