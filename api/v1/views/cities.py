@@ -2,7 +2,7 @@
 """handle default rest api actions """
 
 from api.v1.views import app_views
-from flask import jsonify, abort, request
+from flask import jsonify, abort, request, make_response
 from models import storage
 from models.amenity import Amenity
 from models.city import City
@@ -51,18 +51,25 @@ def delete_specific_citie(city_id):
         abort(404)
 
 
-@app_views.route('/cities', strict_slashes=False, methods=['POST'])
-def create_city():
+@app_views.route('/states/<state_id>/cities',
+                 strict_slashes=False, methods=['GET', 'POST'])
+def create_city(state_id):
+
     if request.get_json():
         new_city_dict = request.get_json()
-        if "name" in new_city_dict:
-            new_city = City(**new_city_dict)
-            new_city.save()
-            response = new_city.to_dict()
-            return jsonify(response), 201
+        state = storage.get(State, state_id)
+        if state:
+            if "name" in new_city_dict:
+                new_city = City(**new_city_dict)
+                new_city.state_id = state_id
+                new_city.save()
+                response = new_city.to_dict()
+                return jsonify(response), 201
+            else:
+                response = "Missing name"
+                abort(400, response)
         else:
-            response = "Missing name"
-            abort(400, response)
+            abort(404)
     else:
         response = "Not a JSON"
         abort(400, response)
