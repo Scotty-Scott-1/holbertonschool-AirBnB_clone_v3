@@ -12,14 +12,14 @@ from models.user import User
 
 
 @app_views.route('/cities', strict_slashes=False)
-def all_states():
+def all_cities():
     all_cities = storage.all(City).values()
     list_cities = [city.to_dict() for city in all_cities]
     return jsonify(list_cities)
 
 
 @app_views.route('/cities/<city_id>', strict_slashes=False)
-def specific_state(city_id):
+def specific_city(city_id):
     key = "City.{}".format(city_id)
     all_cities = storage.all(City)
     if key in all_cities:
@@ -62,7 +62,7 @@ def create_city():
 
 
 @app_views.route('/cities/<city_id>', strict_slashes=False, methods=['PUT'])
-def update_citiy(city_id):
+def update_city(city_id):
     key = "City.{}".format(city_id)
     all_cities = storage.all(City)
     if key in all_cities:
