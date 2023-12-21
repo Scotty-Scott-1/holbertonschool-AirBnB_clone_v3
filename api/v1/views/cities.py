@@ -9,13 +9,20 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.user import User
+from models.state import State
 
 
-@app_views.route('/cities', strict_slashes=False)
-def all_cities():
+@app_views.route('/states/<state_id>/cities', strict_slashes=False)
+def all_cities(state_id):
     all_cities = storage.all(City).values()
-    list_cities = [city.to_dict() for city in all_cities]
-    return jsonify(list_cities)
+    state = storage.get(State, state_id)
+
+    if state:
+        list_cities = [city.to_dict()
+                       for city in all_cities if city.state_id == state_id]
+        return jsonify(list_cities)
+    else:
+        abort(404)
 
 
 @app_views.route('/cities/<city_id>', strict_slashes=False)
