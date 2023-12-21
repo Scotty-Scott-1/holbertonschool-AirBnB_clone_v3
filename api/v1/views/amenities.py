@@ -20,7 +20,7 @@ def all_amenities():
 
 @app_views.route('/amenities/<amenity_id>', strict_slashes=False)
 def specific_amenity(amenity_id):
-    key = "amenity.{}".format(amenity_id)
+    key = "Amenity.{}".format(amenity_id)
     all_amenities = storage.all(Amenity)
     if key in all_amenities:
         specific_amenity = all_amenities[key].to_dict()
@@ -32,7 +32,7 @@ def specific_amenity(amenity_id):
 @app_views.route(
         '/amenities/<amenity_id>', strict_slashes=False, methods=['DELETE'])
 def delete_specific_amenity(amenity_id):
-    key = "amenity.{}".format(amenity_id)
+    key = "Amenity.{}".format(amenity_id)
     all_amenities = storage.all(Amenity)
 
     if key in all_amenities:
@@ -61,9 +61,10 @@ def create_amenity():
         abort(400, response)
 
 
-@app_views.route('/amenities/<amenity_id>', strict_slashes=False, methods=['PUT'])
+@app_views.route(
+        '/amenities/<amenity_id>', strict_slashes=False, methods=['PUT'])
 def update_amenity(amenity_id):
-    key = "amenity.{}".format(amenity_id)
+    key = "Amenity.{}".format(amenity_id)
     all_amenities = storage.all(Amenity)
     if key in all_amenities:
         specific_amenity = all_amenities[key]
