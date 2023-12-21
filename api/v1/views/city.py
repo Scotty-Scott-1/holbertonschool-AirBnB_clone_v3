@@ -18,7 +18,7 @@ def all_states():
 
 @app_views.route('/cities/<city_id>', strict_slashes=False)
 def specific_state(city_id):
-    key = "City.{}".format(city_id_id)
+    key = "City.{}".format(city_id)
     all_cities = storage.all(City)
     if key in all_cities:
         specific_city = all_cities[key].to_dict()
