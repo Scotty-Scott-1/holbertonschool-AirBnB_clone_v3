@@ -30,7 +30,7 @@ def specific_state(city_id):
 @app_views.route(
         '/cities/<city_id>', strict_slashes=False, methods=['DELETE'])
 def delete_specific_state(city_id):
-    key = "City.{}".format(city_id_id)
+    key = "City.{}".format(city_id)
     all_cities = storage.all(City)
 
     if key in all_cities:
@@ -59,7 +59,7 @@ def create_city():
 
 
 @app_views.route('/cities/<city_id>', strict_slashes=False, methods=['PUT'])
-def update_state(city_id):
+def update_citiy(city_id):
     key = "City.{}".format(city_id)
     all_cities = storage.all(City)
     if key in all_cities:
