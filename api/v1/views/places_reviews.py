@@ -13,7 +13,7 @@ from models.state import State
 
 
 @app_views.route('/places/<place_id>/reviews', strict_slashes=False)
-def all_places(place_id):
+def all_reviews(place_id):
     all_reviews = storage.all(Review).values()
     place = storage.get(Place, place_id)
 
