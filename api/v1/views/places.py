@@ -59,18 +59,22 @@ def create_place(city_id):
         new_place_dict = request.get_json()
         city = storage.get(City, city_id)
         if city:
-            if "user_id" in new_place_dict:
-                user = storage.get(User, new_place_dict["user_id"])
-                if user:
-                    new_place = Place(**new_place_dict)
-                    new_place.city_id = city_id
-                    new_place.save()
-                    response = new_place.to_dict()
-                    return jsonify(response), 201
+            if "name" in new_place_dict:
+                if "user_id" in new_place_dict:
+                    user = storage.get(User, new_place_dict["user_id"])
+                    if user:
+                        new_place = Place(**new_place_dict)
+                        new_place.city_id = city_id
+                        new_place.save()
+                        response = new_place.to_dict()
+                        return jsonify(response), 201
+                    else:
+                        abort(404)
                 else:
-                    abort(404)
+                    response = "Missing user_id"
+                    abort(400, response)
             else:
-                response = "Missing user_id"
+                response = "Missing name"
                 abort(400, response)
         else:
             abort(404)
