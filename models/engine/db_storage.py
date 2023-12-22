@@ -3,18 +3,19 @@
 Contains the class DBStorage
 """
 
+
 import models
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
 from models.city import City
+from os import getenv
 from models.place import Place
 from models.review import Review
-from models.state import State
-from models.user import User
-from os import getenv
-import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from models.state import State
+from models.user import User
+
 
 classes = {"Amenity": Amenity, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -77,21 +78,16 @@ class DBStorage:
 
     def get(self, cls, id):
         """return an object base on class and ID"""
-        if cls in classes.values():
-            all_objs = models.storage.all(cls)
-            key = "{}.{}".format(cls.__name__, id)
-            if key in all_objs:
-                return all_objs[key]
-            else:
-                return None
-        else:
-            return None
+        if cls and id:
+            return self.__session.query(cls).get(id)
 
     def count(self, cls=None):
         """Count the number of objects of the class.
         if no class count all objzcts in storage"""
-        if cls in classes.values():
-            objs = len(models.storage.all(cls))
+        if cls:
+            return self.__session.query(cls).count()
         else:
-            objs = len(models.storage.all())
-        return objs
+            count = 0
+            for classe in classes.values():
+                count += self.__session.query(classe).count()
+            return count
