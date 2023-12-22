@@ -79,7 +79,7 @@ class DBStorage:
         """return an object base on class and ID"""
         if cls in classes.values():
             all_objs = models.storage.all(cls)
-            key = "State." + id
+            key = "{}.{}".format(cls.__name__, id)
             if key in all_objs:
                 return all_objs[key]
             else:
